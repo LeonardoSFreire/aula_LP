@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mechanism - Dark Glass Tech Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&amp;family=Outfit:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00FF66",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#050505",
+                        "surface": "rgba(18, 18, 18, 0.6)",
+                        "muted": "#8D8D93",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Outfit", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "16px",
+                        "xl": "1.5rem",
+                        "full": "100px"
+                    },
+                    boxShadow: {
+                        'glow': '0 0 32px rgba(0, 255, 102, 0.15)',
+                        'glow-hover': '0 0 48px rgba(0, 255, 102, 0.3)',
+                    },
+                    animation: {
+                        'flow': 'flow 2s linear infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        flow: {
+                            '0%': { backgroundPosition: '200% center' },
+                            '100%': { backgroundPosition: '-200% center' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Outfit', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6, .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: -0.04em;
+        }
+        .glass-panel {
+            background-color: rgba(18, 18, 18, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-panel:hover {
+            border-top: 1px solid #00FF66;
+            box-shadow: 0 0 32px rgba(0, 255, 102, 0.15);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+        
+        /* Animated connection lines */
+        .animated-line {
+            height: 2px;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                rgba(0, 255, 102, 0.8) 50%, 
+                rgba(255, 255, 255, 0.1) 100%);
+            background-size: 200% auto;
+            animation: flow 2s linear infinite;
+            position: relative;
+            z-index: 0;
+        }
+        
+        .animated-line::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: linear-gradient(90deg, #050505 50%, transparent 50%);
+            background-size: 8px 2px;
+            z-index: 1;
+        }
+
+        /* Subtle grid background */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen antialiased selection:bg-primary/30 selection:text-white">
+<!-- Mechanism Section -->
+<section class="relative w-full min-h-screen py-24 flex items-center justify-center overflow-hidden bg-grid">
+<!-- Background Ambient Glow -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="container mx-auto px-6 lg:px-12 relative z-10 max-w-7xl">
+<!-- Section Header -->
+<div class="text-center mb-20">
+<p class="text-primary text-sm font-semibold tracking-[0.1em] uppercase mb-4 font-body">Architecture</p>
+<h2 class="text-5xl md:text-6xl font-display font-bold text-white mb-6">The Engine Behind The Execution.</h2>
+<p class="text-muted text-lg md:text-xl max-w-2xl mx-auto font-body">Flawless, asynchronous data processing built for scale. Watch how a simple input transforms into instant, personalized engagement.</p>
+</div>
+<!-- Pipeline Container -->
+<div class="relative w-full mt-16">
+<!-- Main Horizontal Layout (Hidden on mobile, visible on lg screens) -->
+<div class="hidden lg:flex items-center justify-between relative w-full h-full pb-12">
+<!-- Continuous Line Behind Cards -->
+<div class="absolute top-1/2 left-[10%] right-[10%] -translate-y-1/2 animated-line"></div>
+<!-- Step 1: Lead Capture -->
+<div class="relative z-10 w-64 group">
+<div class="glass-panel rounded-lg p-6 flex flex-col items-center text-center transition-all duration-300 relative overflow-hidden">
+<!-- Subtle node glow -->
+<div class="absolute -top-10 -right-10 w-20 h-20 bg-primary/20 blur-[24px] rounded-full group-hover:bg-primary/40 transition-colors"></div>
+<div class="w-16 h-16 rounded-full bg-[#121212] border border-white/10 flex items-center justify-center mb-4 text-white shadow-[0_0_15px_rgba(255,255,255,0.05)] group-hover:text-primary group-hover:border-primary/50 transition-colors">
+<span class="material-symbols-outlined text-3xl">database</span>
+</div>
+<h3 class="font-display font-bold text-xl text-white mb-2">Lead Capture</h3>
+<p class="text-muted text-sm font-body">Supabase Integration</p>
+</div>
+</div>
+<!-- Step 2: Logic -->
+<div class="relative z-10 w-64 group">
+<div class="glass-panel rounded-lg p-6 flex flex-col items-center text-center transition-all duration-300 relative overflow-hidden">
+<div class="absolute -top-10 -right-10 w-20 h-20 bg-primary/20 blur-[24px] rounded-full group-hover:bg-primary/40 transition-colors"></div>
+<div class="w-16 h-16 rounded-full bg-[#121212] border border-white/10 flex items-center justify-center mb-4 text-white shadow-[0_0_15px_rgba(255,255,255,0.05)] group-hover:text-primary group-hover:border-primary/50 transition-colors animate-pulse-slow">
+<span class="material-symbols-outlined text-3xl">memory</span>
+</div>
+<h3 class="font-display font-bold text-xl text-white mb-2">Logic Hub</h3>
+<p class="text-muted text-sm font-body">Node.js / Express</p>
+</div>
+</div>
+<!-- Step 3: AI Processing -->
+<div class="relative z-10 w-64 group">
+<div class="glass-panel rounded-lg p-6 flex flex-col items-center text-center transition-all duration-300 relative overflow-hidden">
+<div class="absolute -top-10 -right-10 w-20 h-20 bg-primary/20 blur-[24px] rounded-full group-hover:bg-primary/40 transition-colors"></div>
+<div class="w-16 h-16 rounded-full bg-[#121212] border border-white/10 flex items-center justify-center mb-4 text-white shadow-[0_0_15px_rgba(255,255,255,0.05)] group-hover:text-primary group-hover:border-primary/50 transition-colors">
+<span class="material-symbols-outlined text-3xl">psychology</span>
+</div>
+<h3 class="font-display font-bold text-xl text-white mb-2">AI Processing</h3>
+<p class="text-muted text-sm font-body">OpenAI / Claude API</p>
+</div>
+</div>
+<!-- Step 4: Delivery -->
+<div class="relative z-10 w-64 group">
+<div class="glass-panel rounded-lg p-6 flex flex-col items-center text-center transition-all duration-300 relative overflow-hidden border-t border-t-primary/30">
+<div class="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors"></div>
+<div class="w-16 h-16 rounded-full bg-[#121212] border border-primary/40 flex items-center justify-center mb-4 text-primary shadow-glow group-hover:shadow-glow-hover transition-all">
+<span class="material-symbols-outlined text-3xl">chat</span>
+</div>
+<h3 class="font-display font-bold text-xl text-white mb-2 relative z-10">Delivery</h3>
+<p class="text-primary text-sm font-body relative z-10">WhatsApp Business API</p>
+</div>
+</div>
+</div>
+<!-- Vertical Layout (Visible on mobile/tablet) -->
+<div class="flex flex-col lg:hidden relative space-y-8 max-w-sm mx-auto">
+<!-- Vertical Animated Line -->
+<div class="absolute top-10 bottom-10 left-1/2 -translate-x-1/2 w-[2px] animated-line" style="background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 255, 102, 0.8) 50%, rgba(255, 255, 255, 0.1) 100%); background-size: auto 200%; animation: flow 2s linear infinite;">
+<style>
+                            @keyframes flowVertical {
+                                0% { background-position: center 200%; }
+                                100% { background-position: center -200%; }
+                            }
+                        </style>
+</div>
+<!-- Step 1 -->
+<div class="relative z-10 group">
+<div class="glass-panel rounded-lg p-6 flex items-center gap-6 transition-all duration-300">
+<div class="w-14 h-14 shrink-0 rounded-full bg-[#121212] border border-white/10 flex items-center justify-center text-white group-hover:text-primary group-hover:border-primary/50 transition-colors">
+<span class="material-symbols-outlined text-2xl">database</span>
+</div>
+<div>
+<h3 class="font-display font-bold text-lg text-white">Lead Capture</h3>
+<p class="text-muted text-sm font-body">Supabase Integration</p>
+</div>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="relative z-10 group">
+<div class="glass-panel rounded-lg p-6 flex items-center gap-6 transition-all duration-300">
+<div class="w-14 h-14 shrink-0 rounded-full bg-[#121212] border border-white/10 flex items-center justify-center text-white group-hover:text-primary group-hover:border-primary/50 transition-colors">
+<span class="material-symbols-outlined text-2xl">memory</span>
+</div>
+<div>
+<h3 class="font-display font-bold text-lg text-white">Logic Hub</h3>
+<p class="text-muted text-sm font-body">Node.js / Express</p>
+</div>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative z-10 group">
+<div class="glass-panel rounded-lg p-6 flex items-center gap-6 transition-all duration-300">
+<div class="w-14 h-14 shrink-0 rounded-full bg-[#121212] border border-white/10 flex items-center justify-center text-white group-hover:text-primary group-hover:border-primary/50 transition-colors">
+<span class="material-symbols-outlined text-2xl">psychology</span>
+</div>
+<div>
+<h3 class="font-display font-bold text-lg text-white">AI Processing</h3>
+<p class="text-muted text-sm font-body">OpenAI / Claude API</p>
+</div>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="relative z-10 group">
+<div class="glass-panel rounded-lg p-6 flex items-center gap-6 transition-all duration-300 border-l border-l-primary/50">
+<div class="w-14 h-14 shrink-0 rounded-full bg-[#121212] border border-primary/40 flex items-center justify-center text-primary shadow-glow">
+<span class="material-symbols-outlined text-2xl">chat</span>
+</div>
+<div>
+<h3 class="font-display font-bold text-lg text-white">Delivery</h3>
+<p class="text-primary text-sm font-body">WhatsApp Business API</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</body></html>

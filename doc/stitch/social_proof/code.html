@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Social Proof - Dark Glass Tech Premium</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#00FF66",
+                        "background-dark": "#050505",
+                        surface: "rgba(18, 18, 18, 0.6)",
+                        muted: "#8D8D93",
+                        border: "rgba(255, 255, 255, 0.08)",
+                    },
+                    fontFamily: {
+                        display: ["Space Grotesk", "sans-serif"],
+                        body: ["Outfit", "sans-serif"],
+                    },
+                    borderRadius: {
+                        card: "16px",
+                        pill: "100px",
+                    },
+                    boxShadow: {
+                        glow: "0 0 32px rgba(0, 255, 102, 0.15)",
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: theme('colors.background-dark');
+            color: #F4F4F5;
+        }
+        
+        h1, h2, h3, h4, h5, h6, .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .glass-card {
+            background-color: theme('colors.surface');
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid theme('colors.border');
+            border-top: 1px solid rgba(0, 255, 102, 0.3); /* Subtle neon top border */
+            border-radius: theme('borderRadius.card');
+        }
+        
+        .logo-strip img {
+            filter: grayscale(100%) opacity(40%);
+            transition: filter 0.3s ease;
+        }
+        
+        .logo-strip img:hover {
+            filter: grayscale(100%) opacity(80%);
+        }
+    </style>
+</head>
+<body class="bg-background-dark min-h-screen flex items-center justify-center py-24">
+<section class="w-full max-w-[1200px] mx-auto px-6 flex flex-col items-center">
+<!-- Header -->
+<div class="text-center mb-16">
+<h4 class="text-primary text-sm font-semibold tracking-[0.1em] uppercase mb-4 font-body">TRUSTED BY 7-FIGURE OPERATIONS</h4>
+<h2 class="text-4xl md:text-5xl font-display font-bold text-white tracking-tight">Proven Results at Scale.</h2>
+</div>
+<!-- Logo Strip -->
+<div class="w-full flex flex-wrap justify-center items-center gap-8 md:gap-16 mb-20 logo-strip opacity-80">
+<img alt="Client Logo 1 Abstract Shape" class="h-8 md:h-10 object-contain max-w-[120px]" data-alt="Client abstract tech logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALLqOJtkaL02xizlbq6at1fWlKooNeOolNyg5jsqhB3OFyeSYtawXoNExl4T9CoS328ZLrK5EHEtqRfP41M_GQV3uWoN2CU359r3aHtP3J1vXmMLwdNDUFsbuECD7gZDEYAc2WX6p5SJY4C0yLTps43mCYFGFe3ozZziwdEQnPfotKyyiUWArOb-iVra3muj3OZ01Bp3ZABzHN8wZZFyfmrtF2cbg_AbvJJiNBONKmxFwW8e9gBvCzKrxWiWgZD46G_9ZVJeNNgs0"/>
+<img alt="Client Logo 2 Geometric" class="h-8 md:h-10 object-contain max-w-[120px]" data-alt="Client geometric shape logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEHDOBUaMY7TA6-GwhYgQeZGTziqE4vkADAsMZwlRvPwGQvC894HReGz_u4_amDEFh5RqH6jG51K9WPIqkeC9WAkgIsl2jgdTBnmWuMG2l-PDlVt6QN4E2Ow4vH_wmaGSuXL1EYHAs37F1_vjDJxMSi34dM7V1FqyssnSwEH9kwFM8o2w4V6D-DtojQYP2tc66X06JbrDaEqVcrzj63xSvKu9YfK0autELuUsBqQvL8ozS2Kxg1BuoRmarPAmQO0TcWrJMQKM_Ns4"/>
+<img alt="Client Logo 3 Wave" class="h-8 md:h-10 object-contain max-w-[120px]" data-alt="Client wave curve logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1hX7au9fCwnbcmnyNJyntBZHuMHe3dR9dewwJ5VJYxOore11YrPFNJuKHKTThJ9dJoVUmL8zpjH77NQj4JFROtUKCg9cVHhUnD1VqKmEX6nH7x-TxMkeIprEqKcwuRpotO9bFCPow21LowWH5Og4MDF7spkRMZfByEWhIB_QMkcWUUR7ni99GsPONgRaA-wwYCwxu9K_5NvWfj8eIXJqT8aeM61fh0uq8Oyej2tbtCyJXBxtViLcOfbuecRm_5_r9PhfJHMp6jBU"/>
+<img alt="Client Logo 4 Circle" class="h-8 md:h-10 object-contain max-w-[120px]" data-alt="Client circular tech logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB630H9et-_MrEOM_1uhYN_tNGJRRrp8A6JJAEe_zJhlK1bqKh0RRhoAQVkP_J0iAjwjP7Ukgfu-e6ybEvELUBCLumdzPwOOkHnZOa9PwSfJA9DVFMarcOVANzCrpUyb6LOwl36Hy002eAQejQyeKJ57-3b7Utk-FoFMFh6gRqY8U-JYjMyLpR3WLnbkju68F9EGAzZsLKc9YiU_pviepqAwSczRdpfqknmmAnvRsYLjFwWomr5fcl1oUcOzSETAKOifcMcn9dpDho"/>
+<img alt="Client Logo 5 Hexagon" class="h-8 md:h-10 object-contain max-w-[120px]" data-alt="Client hexagon abstract logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHla-eJ0sVMI6fXpwsCMMAy7B-bIztNlDsJ-JxeJGwOdAp6UrRIpuxClR-aV2HnY0Ktk00g7bFgAaJXvjJHEpciHkCrTS0qcVcYDq740OG-UBrawIiS_ASvmifYjkCO9YB4-dcuHDsHi52yKCqIGbBMQDufmwqZbb0LPz7pqR05fGjNZnZmRutVrhUZoV8Vfq6TVVYeZPdy8Wx2gP45P8j397IHebq_wkVynX3YcxtiFRwogiLqKES4S3lSfYi8xGXmgOrDbAms98"/>
+</div>
+<!-- Metric Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+<!-- Card 1 -->
+<div class="glass-card p-8 flex flex-col items-center justify-center text-center group hover:shadow-glow transition-all duration-300">
+<span class="material-symbols-outlined text-muted mb-4 text-3xl group-hover:text-primary transition-colors">trending_up</span>
+<p class="text-4xl md:text-[48px] font-display font-bold text-white leading-tight mb-2 tracking-tight">+340%</p>
+<p class="text-muted text-lg font-body">Increase in Engagement</p>
+</div>
+<!-- Card 2 -->
+<div class="glass-card p-8 flex flex-col items-center justify-center text-center group hover:shadow-glow transition-all duration-300">
+<span class="material-symbols-outlined text-muted mb-4 text-3xl group-hover:text-primary transition-colors">bolt</span>
+<p class="text-4xl md:text-[48px] font-display font-bold text-white leading-tight mb-2 tracking-tight">&lt;2s</p>
+<p class="text-muted text-lg font-body">Average Response Time</p>
+</div>
+<!-- Card 3 -->
+<div class="glass-card p-8 flex flex-col items-center justify-center text-center group hover:shadow-glow transition-all duration-300">
+<span class="material-symbols-outlined text-muted mb-4 text-3xl group-hover:text-primary transition-colors">payments</span>
+<p class="text-4xl md:text-[48px] font-display font-bold text-white leading-tight mb-2 tracking-tight">$45k</p>
+<p class="text-muted text-lg font-body">Monthly Value Generated</p>
+</div>
+</div>
+</section>
+</body></html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dark Glass Tech Premium</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&amp;family=Space+Grotesk:wght@600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#13ec6a",
+          "background-light": "#f6f8f7",
+          "background-dark": "#050505",
+          "surface": "rgba(18, 18, 18, 0.6)",
+          "text-main": "#F4F4F5",
+          "text-muted": "#8D8D93",
+          "border-color": "rgba(255, 255, 255, 0.08)"
+        },
+        fontFamily: {
+          "display": ["Space Grotesk", "sans-serif"],
+          "body": ["Outfit", "sans-serif"]
+        },
+        borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+        backgroundImage: {
+          'radial-glow': 'radial-gradient(circle at center, rgba(19, 236, 106, 0.1) 0%, transparent 50%)',
+        },
+        boxShadow: {
+          'glow': '0 0 16px rgba(19, 236, 106, 0.15)',
+          'glow-hover': '0 0 32px rgba(19, 236, 106, 0.3)',
+        }
+      },
+    },
+  }
+</script>
+<style>
+  body {
+    background-color: #050505;
+  }
+</style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-text-main font-body min-h-screen relative overflow-x-hidden">
+<!-- Fixed Navigation Bar -->
+<nav class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-6 lg:px-10 border-b border-border-color bg-[#050505]/80 backdrop-blur-md">
+<div class="flex items-center gap-3 cursor-pointer">
+<div class="text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl">diamond</span>
+</div>
+<span class="font-display font-bold text-xl tracking-tight text-text-main">Dark Glass</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium text-text-muted hover:text-primary transition-colors duration-200 uppercase tracking-widest" href="#">Mechanism</a>
+<a class="text-sm font-medium text-text-muted hover:text-primary transition-colors duration-200 uppercase tracking-widest" href="#">Proof</a>
+<a class="text-sm font-medium text-text-muted hover:text-primary transition-colors duration-200 uppercase tracking-widest" href="#">Contact</a>
+</div>
+<div class="flex items-center">
+<button class="hidden md:flex items-center justify-center h-10 px-6 rounded-full bg-surface border border-border-color text-text-main text-sm font-display font-semibold hover:bg-white/5 transition-colors duration-200">
+        Log In
+      </button>
+<button class="md:hidden text-text-main flex items-center justify-center p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+<!-- Hero Section -->
+<main class="relative min-h-screen flex flex-col items-center justify-center pt-16 px-4 sm:px-6 lg:px-8 z-10">
+<!-- Background Gradient Orb -->
+<div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
+<div class="w-[800px] h-[800px] bg-radial-glow rounded-full"></div>
+</div>
+<!-- Content -->
+<div class="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto space-y-8">
+<div class="space-y-6">
+<h1 class="font-display font-bold text-5xl sm:text-6xl md:text-[72px] leading-[1.1] tracking-[-0.04em] text-text-main">
+          Scale Without <br class="hidden sm:block"/> The Headcount.
+        </h1>
+<p class="font-body text-lg md:text-2xl text-text-muted max-w-2xl mx-auto leading-relaxed">
+          Bespoke AI &amp; WhatsApp automation for 7-figure operations.
+        </p>
+</div>
+<div class="pt-4">
+<button class="group relative inline-flex items-center justify-center h-14 md:h-16 px-8 md:px-10 rounded-full bg-primary text-[#050505] font-display font-bold text-base md:text-lg tracking-wide transition-all duration-300 shadow-glow hover:shadow-glow-hover hover:scale-[1.05] overflow-hidden">
+<span class="relative z-10 flex items-center gap-2">
+            Automate My Operations
+            <span class="material-symbols-outlined text-[20px] transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span>
+</span>
+<!-- subtle shimmer effect -->
+<div class="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent z-0"></div>
+</button>
+</div>
+</div>
+</main>
+</body></html>

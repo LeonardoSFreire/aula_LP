@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dark Glass Tech Premium - Action Module</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&amp;family=Outfit:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec6a",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#050505",
+                        "surface": "rgba(18, 18, 18, 0.6)",
+                        "muted": "#8D8D93",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Outfit", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        'glow': '0 0 32px rgba(19, 236, 106, 0.15)',
+                        'glow-intense': '0 0 48px rgba(19, 236, 106, 0.3)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #050505;
+            color: #F4F4F5;
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .font-display, button {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .glass-panel {
+            background: rgba(18, 18, 18, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #8D8D93;
+            color: #F4F4F5;
+            padding: 12px 0;
+            font-size: 18px;
+            font-family: 'Outfit', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-bottom-color: #13ec6a;
+            box-shadow: 0 1px 0 0 #13ec6a;
+        }
+
+        .input-group label {
+            position: absolute;
+            left: 0;
+            top: 12px;
+            color: #8D8D93;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label {
+            top: -20px;
+            font-size: 14px;
+            color: #13ec6a;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .btn-primary {
+            background-color: #13ec6a;
+            color: #050505;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            box-shadow: var(--tw-shadow-glow);
+            transform: scale(1.02);
+        }
+
+        /* Interactive States Demo (CSS Only for visual) */
+        .form-container {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .success-state {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        /* To view success state, add class 'is-success' to the parent relative container via JS */
+        .is-success .form-container {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-20px);
+        }
+        .is-success .success-state {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .pulse-icon {
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(19, 236, 106, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(19, 236, 106, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(19, 236, 106, 0); }
+        }
+
+        /* Abstract Background Glow */
+        .bg-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(19, 236, 106, 0.1) 0%, rgba(5, 5, 5, 0) 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-background-dark relative">
+<div class="bg-glow"></div>
+<div class="relative w-full max-w-[1000px] px-6 mx-auto flex justify-center items-center">
+<!-- Main Content Area -->
+<div class="relative w-full max-w-[600px] z-10">
+<div class="text-center mb-10">
+<h2 class="font-display text-[40px] md:text-[56px] font-bold leading-tight tracking-[-0.04em] text-[#F4F4F5] mb-4">
+                    Ready to scale your operations?
+                </h2>
+<p class="text-muted text-[18px] leading-relaxed">
+                    Enter your details to see the magic happen instantly.
+                </p>
+</div>
+<!-- Glass Card Container -->
+<div class="glass-panel rounded-xl p-8 md:p-10 relative overflow-hidden">
+<!-- Form State -->
+<div class="form-container">
+<div class="input-group">
+<input id="fullName" placeholder=" " required="" type="text"/>
+<label for="fullName">Full Name</label>
+</div>
+<div class="input-group">
+<input id="whatsapp" placeholder=" " required="" type="tel"/>
+<label for="whatsapp">WhatsApp Number</label>
+</div>
+<button class="btn-primary w-full py-4 rounded-full font-display font-semibold text-[16px] tracking-wide mt-4 flex items-center justify-center gap-2 group">
+<span>Send Me a WhatsApp</span>
+<span class="material-symbols-outlined text-[20px] transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+<p class="text-center text-muted text-[14px] mt-6 flex items-center justify-center gap-2 uppercase tracking-[0.1em]">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+                        Secure &amp; Encrypted
+                    </p>
+</div>
+<!-- Success State (Hidden by default) -->
+<div class="success-state">
+<div class="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center mb-6 pulse-icon">
+<span class="material-symbols-outlined text-[48px] text-primary">check_circle</span>
+</div>
+<h3 class="font-display text-[32px] font-bold text-[#F4F4F5] mb-2">Check your phone.</h3>
+<p class="text-muted text-[18px]">Your automation preview is waiting.</p>
+</div>
+</div>
+</div>
+<!-- Preview Widget (Absolute positioned on Desktop) -->
+<div class="hidden lg:block absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-[20%] z-20 w-[320px]">
+<div class="glass-panel rounded-xl p-4 shadow-2xl border border-white/10 backdrop-blur-xl">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-lg bg-[#25D366] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-white">chat</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<span class="text-[14px] font-semibold text-[#F4F4F5]">WhatsApp</span>
+<span class="text-[12px] text-muted">now</span>
+</div>
+<p class="text-[14px] text-[#F4F4F5] leading-snug">
+<strong class="font-medium text-primary">Automation Bot</strong><br/>
+                            Your bespoke workflow is ready. Reply 'START' to begin.
+                        </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

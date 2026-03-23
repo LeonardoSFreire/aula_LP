@@ -1,0 +1,187 @@
+# Dark Glass Tech Premium
+
+## Product Overview
+
+**The Pitch:** High-conversion desktop landing page for a premium AI and WhatsApp automation agency. Positions automation not as a cheap utility, but as a high-end, bespoke enterprise solution.
+
+**For:** Operations directors and founders scaling 7-figure businesses who value sleek, immediate, and flawless execution.
+
+**Device:** desktop
+
+**Design Direction:** Luxurious dark mode using deep, pure blacks, frosted glassmorphism, and precise neon green accents mimicking terminal glow.
+
+**Inspired by:** Linear, Vercel, Apple Pro product pages.
+
+---
+
+## Screens
+
+- **Hero Section:** Instantly communicate value prop with a glowing primary CTA
+- **Problem-Result Bridge:** Stark visual contrast between manual chaos and automated clarity
+- **Mechanism:** Architectural breakdown of the stack (WhatsApp API, Node.js, Express, Supabase)
+- **Social Proof:** High-contrast metric cards and client logos
+- **Action Module:** Frictionless lead capture form with live WhatsApp confirmation preview
+
+---
+
+## Key Flows
+
+**Lead Capture Flow:** Convert visitor to qualified lead
+
+1. User is on **Action Module** -> sees minimalist form
+2. User enters `Name` and `Phone Number`
+3. User clicks **"Automate My Operations"** -> button morphs to loading state with neon pulse
+4. Form dissolves into a success state -> UI shows a simulated WhatsApp notification "Message Sent"
+
+---
+
+<details>
+<summary>Design System</summary>
+
+## Color Palette
+
+- **Primary:** `#00FF66` - Neon green: buttons, active links, glow effects
+- **Background:** `#050505` - Vantablack: page background
+- **Surface:** `#121212` - Dark gray: glass cards, modals (`backdrop-filter: blur(16px)`)
+- **Text:** `#F4F4F5` - Off-white: headings, body text
+- **Muted:** `#8D8D93` - Slate: secondary text, subtle borders (`#FFFFFF` at `8%` opacity)
+- **Accent:** `#00FF66` - Neon green: success, highlights
+
+## Typography
+
+Distinctive geometric sans-serifs that feel engineered and precise.
+
+- **Headings:** `Space Grotesk`, 700, 32-72px, -0.04em tracking
+- **Body:** `Outfit`, 400, 18px, 1.6 line height
+- **Small text:** `Outfit`, 400, 14px, uppercase, 0.1em tracking
+- **Buttons:** `Space Grotesk`, 600, 16px
+
+**Style notes:** 
+- Surfaces use 1px solid white borders at 8% opacity.
+- Elements feature diffuse, large radius box-shadows in neon green (`rgba(0, 255, 102, 0.15)`) for hover states.
+- 16px standard border radius for cards, 100px (pill) for primary buttons.
+
+## Design Tokens
+
+```css
+:root {
+  --color-primary: #00FF66;
+  --color-background: #050505;
+  --color-surface: rgba(18, 18, 18, 0.6);
+  --color-text: #F4F4F5;
+  --color-muted: #8D8D93;
+  --color-border: rgba(255, 255, 255, 0.08);
+  
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Outfit', sans-serif;
+  
+  --radius-card: 16px;
+  --radius-pill: 100px;
+  
+  --shadow-glow: 0 0 32px rgba(0, 255, 102, 0.15);
+  --glass-blur: blur(16px);
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>Screen Specifications</summary>
+
+### Hero Section
+
+**Purpose:** Hook the visitor and drive immediate action.
+
+**Layout:** Centered. High cognitive accessibility. 72px H1, 24px subtitle, horizontal CTA cluster.
+
+**Key Elements:**
+- **Headline:** 72px `Space Grotesk`, pure white. "Scale Without The Headcount."
+- **Subheadline:** 24px `Outfit`, `#8D8D93`. "Bespoke AI & WhatsApp automation for 7-figure operations."
+- **Primary CTA:** Pill button, `#00FF66` background, `#050505` text, glowing shadow on hover.
+- **Background Graphic:** Subtle, blurred radial gradient orb of `#00FF66` at 10% opacity dead center.
+
+**Components:**
+- **Nav Bar:** Fixed top, 64px height, frosted glass `rgba(5, 5, 5, 0.8)`.
+
+**Interactions:**
+- **Hover CTA:** Box shadow expands from 16px to 32px spread, scaling 1.05x.
+
+### Problem-Result Bridge
+
+**Purpose:** Visualize the pain of manual work vs. the elegance of our automation.
+
+**Layout:** 2-column grid. Left side: Manual (Red/Chaotic). Right side: Automated (Green/Organized).
+
+**Key Elements:**
+- **Manual Card:** `#121212` background, messy stacked UI elements, `#FF3333` subtle accents. "15 hours/week lost to follow-ups."
+- **Automated Card:** Glass background, clean alignment, glowing `#00FF66` checkmarks. "Instant, zero-touch engagement."
+- **Divider:** Vertical 1px line, fading out at top and bottom.
+
+**Components:**
+- **Metric Badges:** 32px height, 8px radius, frosted dark background, bold numeric values.
+
+### Mechanism
+
+**Purpose:** Prove technical competence.
+
+**Layout:** 4-step horizontal pipeline with connecting animated dashed lines.
+
+**Key Elements:**
+- **Step 1: Lead Capture:** Supabase logo integration, glass card.
+- **Step 2: Logic:** Node.js/Express brain hub, pulsing center.
+- **Step 3: AI Processing:** OpenAI/Claude API node.
+- **Step 4: Delivery:** WhatsApp Business API icon.
+- **Connection Lines:** 2px dashed lines with a moving CSS gradient indicating data flow.
+
+**Interactions:**
+- **Scroll Entry:** Nodes fade up and lines begin "flowing" iteratively as they enter the viewport.
+
+### Social Proof
+
+**Purpose:** Build trust through sheer numbers.
+
+**Layout:** Masonry grid of metric cards and minimal client logos in a single monochromatic row.
+
+**Key Elements:**
+- **Logo Strip:** 6 client logos, completely desaturated, 40% opacity, 120px max width.
+- **Metric Cards:** 3 large cards. 48px numerical figures (`+340%`, `<2s`, `$45k`).
+- **Card Styling:** Glass surfaces with a very subtle 1px top border of `#00FF66` to catch the eye.
+
+### Action Module
+
+**Purpose:** The conversion point. Capture name and phone number.
+
+**Layout:** Centered 600px max-width container. Card format.
+
+**Key Elements:**
+- **Form Card:** Dark glass, 24px padding, 16px radius.
+- **Inputs:** Floating labels. `border-bottom: 1px solid #8D8D93`. No backgrounds. Focus state turns border `#00FF66`.
+- **Submit Button:** Full width, matching Hero CTA styling. "Send Me a WhatsApp"
+- **Preview Widget:** Absolute positioned right offset, a mock iOS lock screen notification showing a WhatsApp message waiting.
+
+**States:**
+- **Loading:** Button text fades to a spinning CSS ring, neon glow intensifies.
+- **Success:** Form elements slide down and fade out. A giant glowing `#00FF66` checkmark appears with "Check your phone."
+
+**Interactions:**
+- **Focus Input:** Label transitions up 12px, scale 0.8. Line glows green.
+
+</details>
+
+---
+
+<details>
+<summary>Build Guide</summary>
+
+**Stack:** HTML + Tailwind CSS v3
+
+**Build Order:**
+1. **Design System & Base Shell:** Setup Tailwind config for custom fonts (`Space Grotesk`, `Outfit`), pure black background, and CSS variables for glassmorphism utilities.
+2. **Hero Section:** Establish the core typography hierarchy and the primary glowing button component.
+3. **Action Module:** Build the complex input states (floating labels, bottom borders) and the form submission animation.
+4. **Mechanism:** Construct the horizontal timeline. Use pure CSS for the dashed animated lines to keep performance high.
+5. **Problem-Result & Social Proof:** Implement the grid layouts and glass cards, ensuring 1px borders are perfectly crisp.
+
+</details>

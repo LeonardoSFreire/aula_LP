@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Antigravity - Soluções em Inteligência Artificial</title>
+  <meta name="description" content="Automação sob medida com IA e WhatsApp para operações de alto faturamento. Escale sem aumentar a equipe." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
+
+  <!-- Three.js (for hero shader) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/89/three.min.js" defer></script>
+
+  <!-- intl-tel-input -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/css/intlTelInput.min.css" />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            neon: '#00FF66',
+            vanta: '#050505',
+            surface: 'rgba(18, 18, 18, 0.6)',
+            offwhite: '#F4F4F5',
+            muted: '#8D8D93',
+            border: 'rgba(255, 255, 255, 0.08)',
+          },
+          fontFamily: {
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            body: ['"Outfit"', 'sans-serif'],
+          },
+          borderRadius: {
+            card: '16px',
+            pill: '100px',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: #050505;
+      color: #F4F4F5;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Utility Classes ── */
+    .font-heading { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.04em; }
+    .font-body { font-family: 'Outfit', sans-serif; line-height: 1.6; }
+    .text-small { font-family: 'Outfit', sans-serif; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; }
+    .glow-shadow { box-shadow: 0 0 32px rgba(0, 255, 102, 0.15); }
+    .glow-shadow-strong { box-shadow: 0 0 48px rgba(0, 255, 102, 0.3); }
+    .glass {
+      background: rgba(18, 18, 18, 0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+    }
+
+    /* ── Navbar ── */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: 64px; z-index: 100;
+      background: rgba(5, 5, 5, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      transition: background 0.3s ease;
+    }
+
+    /* ── Hero Shader Background ── */
+    .hero-shader-container {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .hero-shader-container canvas {
+      display: block;
+      width: 100% !important;
+      height: 100% !important;
+    }
+    .hero-shader-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(ellipse at center, rgba(5,5,5,0.3) 0%, rgba(5,5,5,0.85) 70%, #050505 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* ── CTA Button ── */
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #00FF66; color: #050505;
+      font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16px;
+      padding: 16px 36px; border-radius: 100px; border: none; cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative; overflow: hidden;
+      text-decoration: none;
+    }
+    .cta-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 48px rgba(0, 255, 102, 0.35);
+    }
+    .cta-btn .shimmer {
+      position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: none;
+    }
+    .cta-btn:hover .shimmer {
+      animation: shimmer 0.6s ease forwards;
+    }
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    /* ── Scroll Reveal ── */
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1; transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── Grid Background ── */
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* ── Pipeline Connector Lines ── */
+    .pipeline-line {
+      flex: 1; height: 2px; min-width: 40px;
+      background: repeating-linear-gradient(90deg, rgba(0,255,102,0.3) 0, rgba(0,255,102,0.3) 8px, transparent 8px, transparent 16px);
+      position: relative; overflow: hidden;
+    }
+    .pipeline-line::after {
+      content: '';
+      position: absolute; top: 0; left: -50%; width: 50%; height: 100%;
+      background: linear-gradient(90deg, transparent, #00FF66, transparent);
+      animation: lineflow 2s linear infinite;
+    }
+    @keyframes lineflow {
+      0% { left: -50%; }
+      100% { left: 100%; }
+    }
+    .pipeline-line-v {
+      width: 2px; height: 40px;
+      background: repeating-linear-gradient(180deg, rgba(0,255,102,0.3) 0, rgba(0,255,102,0.3) 8px, transparent 8px, transparent 16px);
+      position: relative; overflow: hidden; margin: 0 auto;
+    }
+    .pipeline-line-v::after {
+      content: '';
+      position: absolute; left: 0; top: -50%; width: 100%; height: 50%;
+      background: linear-gradient(180deg, transparent, #00FF66, transparent);
+      animation: lineflow-v 2s linear infinite;
+    }
+    @keyframes lineflow-v {
+      0% { top: -50%; }
+      100% { top: 100%; }
+    }
+
+    /* ── Pulse animation on Hub Lógico icon ── */
+    @keyframes pulse-ring {
+      0% { box-shadow: 0 0 0 0 rgba(0,255,102,0.4); }
+      70% { box-shadow: 0 0 0 12px rgba(0,255,102,0); }
+      100% { box-shadow: 0 0 0 0 rgba(0,255,102,0); }
+    }
+    .pulse { animation: pulse-ring 2s ease-out infinite; }
+
+    /* ── Metric Card ── */
+    .metric-card {
+      border-top: 1px solid #00FF66;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .metric-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 32px rgba(0, 255, 102, 0.15);
+    }
+
+    /* ── Floating Label Form ── */
+    .form-group {
+      position: relative; margin-bottom: 28px;
+    }
+    .form-group input {
+      width: 100%; background: transparent; border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      padding: 12px 0 8px 0;
+      font-family: 'Outfit', sans-serif; font-size: 16px; color: #F4F4F5;
+      outline: none; transition: border-color 0.3s ease;
+    }
+    .form-group input:focus {
+      border-bottom-color: #00FF66;
+    }
+    .form-group label {
+      position: absolute; left: 0; top: 12px;
+      font-family: 'Outfit', sans-serif; font-size: 16px; color: #8D8D93;
+      pointer-events: none;
+      transition: all 0.25s ease;
+    }
+    .form-group input:focus ~ label,
+    .form-group input:not(:placeholder-shown) ~ label {
+      top: -10px; font-size: 12px; color: #00FF66;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+
+    /* ── Field Inline Errors ── */
+    .field-error {
+      display: none;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      color: #FF4444;
+      margin-top: 6px;
+    }
+    .field-error.visible {
+      display: block;
+    }
+    .form-group.has-error input {
+      border-bottom-color: #FF4444 !important;
+    }
+
+    /* ── Form States ── */
+    .form-default { transition: opacity 0.5s ease, transform 0.5s ease; }
+    .form-default.hidden { opacity: 0; transform: scale(0.95); pointer-events: none; position: absolute; }
+    .form-success { display: none; text-align: center; }
+    .form-success.show { display: block; animation: fadeScale 0.5s ease forwards; }
+    @keyframes fadeScale {
+      0% { opacity: 0; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* ── Spinner ── */
+    .spinner {
+      display: inline-block; width: 20px; height: 20px;
+      border: 2px solid rgba(5,5,5,0.3); border-top-color: #050505;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Logo Strip ── */
+    .logo-placeholder {
+      opacity: 0.4; filter: grayscale(100%);
+      transition: opacity 0.3s ease, filter 0.3s ease;
+    }
+    .logo-placeholder:hover {
+      opacity: 0.8; filter: grayscale(0%);
+    }
+
+    /* ── Checkmark animation ── */
+    @keyframes checkDraw {
+      to { stroke-dashoffset: 0; }
+    }
+    .check-circle {
+      stroke-dasharray: 166; stroke-dashoffset: 166;
+      animation: checkDraw 0.6s ease forwards 0.2s;
+    }
+    .check-mark {
+      stroke-dasharray: 48; stroke-dashoffset: 48;
+      animation: checkDraw 0.4s ease forwards 0.6s;
+    }
+
+    /* ── WhatsApp Chat Simulator ── */
+    .wa-simulator {
+      position: relative;
+      width: 340px;
+      max-width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #0b141a;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+      animation: floatIn 0.8s ease forwards;
+      opacity: 0;
+      animation-delay: 0.5s;
+    }
+    @keyframes floatIn {
+      0% { opacity: 0; transform: translateX(20px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+    .wa-sim-header {
+      background: #1f2c34;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .wa-sim-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(0,255,102,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .wa-sim-avatar span { color: #00FF66; font-size: 22px; }
+    .wa-sim-info p:first-child {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px; font-weight: 600; color: #e9edef;
+    }
+    .wa-sim-info p:last-child {
+      font-size: 12px; color: #00FF66;
+      font-family: 'Outfit', sans-serif;
+    }
+    .wa-sim-body {
+      padding: 16px;
+      min-height: 320px;
+      max-height: 380px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      background:
+        url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L35 15 L30 12 L25 15Z' fill='rgba(255,255,255,0.012)'/%3E%3C/svg%3E")
+        repeat;
+    }
+    .wa-sim-body::-webkit-scrollbar { width: 4px; }
+    .wa-sim-body::-webkit-scrollbar-track { background: transparent; }
+    .wa-sim-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+    .wa-msg {
+      max-width: 82%;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+      position: relative;
+      animation: msgPop 0.3s ease forwards;
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    @keyframes msgPop {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .wa-msg-client {
+      background: #1f2c34;
+      color: #e9edef;
+      align-self: flex-start;
+      border-top-left-radius: 3px;
+    }
+    .wa-msg-bot {
+      background: #005c4b;
+      color: #e9edef;
+      align-self: flex-end;
+      border-top-right-radius: 3px;
+    }
+    .wa-msg-time {
+      font-size: 10px;
+      color: rgba(255,255,255,0.45);
+      text-align: right;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 3px;
+    }
+    .wa-msg-bot .wa-msg-time { color: rgba(255,255,255,0.55); }
+    .wa-typing {
+      align-self: flex-end;
+      background: #005c4b;
+      padding: 10px 18px;
+      border-radius: 10px;
+      border-top-right-radius: 3px;
+      display: flex;
+      gap: 4px;
+      animation: msgPop 0.3s ease forwards;
+      opacity: 0;
+    }
+    .wa-typing-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      animation: typingBounce 1.2s ease-in-out infinite;
+    }
+    .wa-typing-dot:nth-child(2) { animation-delay: 0.15s; }
+    .wa-typing-dot:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+      30% { transform: translateY(-5px); opacity: 1; }
+    }
+    .wa-sim-footer {
+      background: #1f2c34;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .wa-sim-input {
+      flex: 1;
+      background: #2a3942;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      color: rgba(255,255,255,0.3);
+    }
+    .wa-sim-send {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: #00a884;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .wa-sim-send span { color: #fff; font-size: 18px; }
+    .wa-check-double { font-size: 14px !important; color: #53bdeb !important; }
+
+    /* ── intl-tel-input dark theme overrides ── */
+    .iti { width: 100%; }
+    #phoneGroup {
+      display: flex;
+      flex-direction: column;
+    }
+    #phoneGroup .phone-label {
+      position: static;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      color: #00FF66;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+      pointer-events: none;
+    }
+    #phoneGroup .iti input {
+      padding-left: 90px !important;
+    }
+    .iti__country-container { position: absolute; top: 0; bottom: 0; }
+    .iti__selected-country {
+      background: transparent !important;
+      border: none !important;
+      padding-left: 0 !important;
+    }
+    .iti__selected-country:hover,
+    .iti__selected-country:focus {
+      background: rgba(255,255,255,0.05) !important;
+    }
+    .iti__selected-dial-code {
+      color: #8D8D93 !important;
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 14px !important;
+    }
+    .iti__arrow { border-top-color: #8D8D93 !important; }
+    .iti__arrow--up { border-bottom-color: #8D8D93 !important; }
+    .iti__dropdown-content {
+      background: #121212 !important;
+      border: 1px solid rgba(255,255,255,0.1) !important;
+      border-radius: 12px !important;
+      overflow: hidden;
+    }
+    .iti__search-input {
+      background: #1a1a1a !important;
+      color: #F4F4F5 !important;
+      border-color: rgba(255,255,255,0.1) !important;
+      font-family: 'Outfit', sans-serif !important;
+    }
+    .iti__search-input::placeholder { color: #8D8D93 !important; }
+    .iti__country {
+      background: transparent !important;
+      color: #F4F4F5 !important;
+      font-family: 'Outfit', sans-serif !important;
+    }
+    .iti__country:hover,
+    .iti__highlight {
+      background: rgba(0,255,102,0.08) !important;
+    }
+    .iti__dial-code { color: #8D8D93 !important; }
+    .iti__country-name { color: #F4F4F5 !important; }
+
+    /* ── Nav link underline ── */
+    .nav-link {
+      position: relative; color: #8D8D93;
+      transition: color 0.3s ease;
+      text-decoration: none;
+    }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px;
+      background: #00FF66; transition: width 0.3s ease;
+    }
+    .nav-link:hover { color: #F4F4F5; }
+    .nav-link:hover::after { width: 100%; }
+
+    /* ── Comparison Card Elements ── */
+    .chaos-line {
+      height: 8px; border-radius: 4px; margin-bottom: 8px;
+    }
+
+    /* ── Mobile Menu ── */
+    .mobile-menu {
+      display: none;
+      position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
+      background: rgba(5,5,5,0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+    .mobile-menu.open { display: flex; }
+
+    /* ── Section Spacing ── */
+    section { padding: 120px 24px; }
+    @media (max-width: 768px) {
+      section { padding: 80px 16px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="max-w-7xl mx-auto h-full flex items-center justify-between px-6">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2 text-offwhite no-underline" aria-label="Antigravity Home">
+        <span class="material-symbols-outlined text-neon" style="font-size:28px;">diamond</span>
+        <span class="font-heading font-bold text-lg">Antigravity</span>
+      </a>
+
+      <!-- Center Nav Links (desktop) -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#mechanism" class="nav-link font-body text-sm">Como Funciona</a>
+        <a href="#proof" class="nav-link font-body text-sm">Resultados</a>
+        <a href="#contact" class="nav-link font-body text-sm">Contato</a>
+      </div>
+
+      <!-- CTA (desktop) -->
+      <div class="hidden md:block">
+        <a href="#contact" class="cta-btn text-sm" style="padding:10px 24px;">
+          Começar Agora
+          <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+          <span class="shimmer"></span>
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger -->
+      <button class="md:hidden flex flex-col gap-1.5 bg-transparent border-none cursor-pointer p-2" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span class="block w-6 h-0.5 bg-offwhite rounded transition-all" id="bar1"></span>
+        <span class="block w-6 h-0.5 bg-offwhite rounded transition-all" id="bar2"></span>
+        <span class="block w-6 h-0.5 bg-offwhite rounded transition-all" id="bar3"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+    <a href="#mechanism" class="nav-link font-heading text-2xl">Como Funciona</a>
+    <a href="#proof" class="nav-link font-heading text-2xl">Resultados</a>
+    <a href="#contact" class="nav-link font-heading text-2xl">Contato</a>
+    <a href="#contact" class="cta-btn mt-4">
+      Começar Agora
+      <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+      <span class="shimmer"></span>
+    </a>
+  </div>
+
+
+  <!-- ═══════════════════════ HERO ═══════════════════════ -->
+  <section class="relative min-h-screen flex items-center justify-center text-center" style="padding-top:64px;">
+    <div class="hero-shader-container" id="heroShader"></div>
+    <div class="hero-shader-overlay"></div>
+    <div class="relative z-10 max-w-3xl mx-auto">
+      <h1 class="font-heading font-bold text-offwhite mb-6 reveal" style="font-size:clamp(40px,6vw,72px);line-height:1.05;">
+        Escale Sem Aumentar<br/>a Equipe.
+      </h1>
+      <p class="font-body text-muted mb-10 reveal reveal-delay-1" style="font-size:clamp(16px,2.5vw,24px);">
+        Automação sob medida com IA &amp; WhatsApp para operações de alto faturamento.
+      </p>
+      <a href="#contact" class="cta-btn reveal reveal-delay-2" style="font-size:18px;">
+        Automatizar Minhas Operações
+        <span class="material-symbols-outlined" style="font-size:20px;">arrow_forward</span>
+        <span class="shimmer"></span>
+      </a>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════ PROBLEM-RESULT BRIDGE ═══════════════════════ -->
+  <section class="max-w-6xl mx-auto">
+    <div class="text-center mb-16">
+      <p class="text-small text-muted mb-3 reveal">Antes &amp; Depois</p>
+      <h2 class="font-heading font-bold text-offwhite reveal reveal-delay-1" style="font-size:clamp(28px,4vw,48px);">
+        Caos Manual vs. Clareza Automatizada
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-[1fr_auto_1fr] gap-6 md:gap-0 items-stretch">
+      <!-- LEFT: Manual / Chaos -->
+      <div class="glass p-8 reveal" style="border-color:rgba(255,51,51,0.2);">
+        <div class="flex items-center gap-2 mb-6">
+          <span class="material-symbols-outlined" style="color:#FF3333;">error</span>
+          <span class="font-heading font-semibold" style="color:#FF3333;">Processo Manual</span>
+        </div>
+        <div class="space-y-3 mb-8">
+          <div class="chaos-line" style="width:90%;background:rgba(255,51,51,0.15);"></div>
+          <div class="chaos-line" style="width:60%;background:rgba(255,51,51,0.10);margin-left:30px;"></div>
+          <div class="chaos-line" style="width:80%;background:rgba(255,51,51,0.12);margin-left:10px;"></div>
+          <div class="chaos-line" style="width:45%;background:rgba(255,51,51,0.08);margin-left:50px;"></div>
+          <div class="chaos-line" style="width:70%;background:rgba(255,51,51,0.15);margin-left:20px;"></div>
+          <div class="chaos-line" style="width:55%;background:rgba(255,51,51,0.10);"></div>
+        </div>
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-pill" style="background:rgba(255,51,51,0.1);border:1px solid rgba(255,51,51,0.2);">
+          <span class="material-symbols-outlined" style="color:#FF3333;font-size:18px;">schedule</span>
+          <span class="font-heading font-bold" style="color:#FF3333;">15 horas/semana perdidas</span>
+        </div>
+      </div>
+
+      <!-- CENTER: Divider -->
+      <div class="hidden md:flex flex-col items-center justify-center px-6 reveal">
+        <div class="w-px flex-1" style="background:rgba(255,255,255,0.08);"></div>
+        <div class="my-4 w-12 h-12 rounded-full flex items-center justify-center" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);">
+          <span class="material-symbols-outlined text-muted">compare_arrows</span>
+        </div>
+        <div class="w-px flex-1" style="background:rgba(255,255,255,0.08);"></div>
+      </div>
+
+      <!-- Mobile Divider -->
+      <div class="flex md:hidden items-center justify-center py-2 reveal">
+        <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);">
+          <span class="material-symbols-outlined text-muted">compare_arrows</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: Automated / Clean -->
+      <div class="glass p-8 reveal reveal-delay-2" style="border-color:rgba(0,255,102,0.15);">
+        <div class="flex items-center gap-2 mb-6">
+          <span class="material-symbols-outlined text-neon">check_circle</span>
+          <span class="font-heading font-semibold text-neon">Pipeline Automatizado</span>
+        </div>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background:rgba(0,255,102,0.04);border:1px solid rgba(0,255,102,0.1);">
+            <span class="material-symbols-outlined text-neon" style="font-size:18px;">person_add</span>
+            <div class="flex-1">
+              <p class="font-body text-sm text-offwhite">Lead Capturado</p>
+              <p class="font-body text-xs text-muted">00:00:00</p>
+            </div>
+            <span class="material-symbols-outlined text-neon" style="font-size:16px;">check</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background:rgba(0,255,102,0.04);border:1px solid rgba(0,255,102,0.1);">
+            <span class="material-symbols-outlined text-neon" style="font-size:18px;">psychology</span>
+            <div class="flex-1">
+              <p class="font-body text-sm text-offwhite">Resposta IA Gerada</p>
+              <p class="font-body text-xs text-muted">00:00:01</p>
+            </div>
+            <span class="material-symbols-outlined text-neon" style="font-size:16px;">check</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background:rgba(0,255,102,0.04);border:1px solid rgba(0,255,102,0.1);">
+            <span class="material-symbols-outlined text-neon" style="font-size:18px;">chat</span>
+            <div class="flex-1">
+              <p class="font-body text-sm text-offwhite">WhatsApp Entregue</p>
+              <p class="font-body text-xs text-muted">00:00:02</p>
+            </div>
+            <span class="material-symbols-outlined text-neon" style="font-size:16px;">check</span>
+          </div>
+        </div>
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-pill" style="background:rgba(0,255,102,0.08);border:1px solid rgba(0,255,102,0.2);">
+          <span class="material-symbols-outlined text-neon" style="font-size:18px;">bolt</span>
+          <span class="font-heading font-bold text-neon">&lt;2 segundos</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════ MECHANISM ═══════════════════════ -->
+  <section id="mechanism" class="relative grid-bg">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-20">
+        <p class="text-small text-muted mb-3 reveal">Como Funciona</p>
+        <h2 class="font-heading font-bold text-offwhite reveal reveal-delay-1" style="font-size:clamp(28px,4vw,48px);">
+          O Motor Por Trás da Execução.
+        </h2>
+        <p class="font-body text-muted mt-4 max-w-xl mx-auto reveal reveal-delay-2">
+          Uma arquitetura modular que captura, processa e entrega em menos de dois segundos.
+        </p>
+      </div>
+
+      <!-- Desktop Pipeline (horizontal) -->
+      <div class="hidden md:flex items-center justify-center gap-0">
+        <!-- Step 1 -->
+        <div class="flex flex-col items-center text-center max-w-[200px] reveal">
+          <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-4" style="background:rgba(0,255,102,0.08);border:1px solid rgba(0,255,102,0.15);">
+            <span class="material-symbols-outlined text-neon" style="font-size:28px;">database</span>
+          </div>
+          <h3 class="font-heading font-semibold text-offwhite text-base mb-1">Captação de Leads</h3>
+          <p class="font-body text-muted text-sm">Supabase</p>
+        </div>
+        <div class="pipeline-line"></div>
+        <!-- Step 2 -->
+        <div class="flex flex-col items-center text-center max-w-[200px] reveal reveal-delay-1">
+          <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-4 pulse" style="background:rgba(0,255,102,0.08);border:1px solid rgba(0,255,102,0.15);">
+            <span class="material-symbols-outlined text-neon" style="font-size:28px;">memory</span>
+          </div>
+          <h3 class="font-heading font-semibold text-offwhite text-base mb-1">Hub Lógico</h3>
+          <p class="font-body text-muted text-sm">Node.js / Express</p>
+        </div>
+        <div class="pipeline-line"></div>
+        <!-- Step 3 -->
+        <div class="flex flex-col items-center text-center max-w-[200px] reveal reveal-delay-2">
+          <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-4" style="background:rgba(0,255,102,0.08);border:1px solid rgba(0,255,102,0.15);">
+            <span class="material-symbols-outlined text-neon" style="font-size:28px;">psychology</span>
+          </div>
+          <h3 class="font-heading font-semibold text-offwhite text-base mb-1">Processamento IA</h3>
+          <p class="font-body text-muted text-sm">OpenAI / Claude</p>
+        </div>
+        <div class="pipeline-line"></div>
+        <!-- Step 4 -->
+        <div class="flex flex-col items-center text-center max-w-[200px] reveal reveal-delay-3">
+          <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-4" style="background:rgba(0,255,102,0.08);border:1px solid rgba(0,255,102,0.15);">
+            <span class="material-symbols-outlined text-neon" style="font-size:28px;">chat</span>
+          </div>
+          <h3 class="font-heading font-semibold text-offwhite text-base mb-1">Entrega</h3>
+          <p class="font-body text-muted text-sm">WhatsApp Business API</p>
+        </div>
+      </div>
+
+      <!-- Mobile Pipeline (vertical) -->
+      <div class="flex md:hidden flex-col items-center gap-0">
+        <div class="flex flex-col items-center text-center reveal">
+          <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-3" style="background:rgba(0,255,102,0.08);border:1px solid rgba(0,255,102,0.15);">
+            <span class="material-symbols-outlined text-neon" style="font-size:28px;">database</span>
+          </div>
+          <h3 class="font-heading font-semibold text-offwhite text-base mb-1">Captação de Leads</h3>
+          <p class="font-body text-muted text-sm mb-2">Supabase</p>
+        </div>
+        <div class="pipeline-line-v"></div>
+        <div class="flex flex-col items-center text-center reveal reveal-delay-1">
+          <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-3 pulse" style="background:rgba(0,255,102,0.08);border:1px solid rgba(0,255,102,0.15);">
+            <span class="material-symbols-outlined text-neon" style="font-size:28px;">memory</span>
+          </div>
+          <h3 class="font-heading font-semibold text-offwhite text-base mb-1">Hub Lógico</h3>
+          <p class="font-body text-muted text-sm mb-2">Node.js / Express</p>
+        </div>
+        <div class="pipeline-line-v"></div>
+        <div class="flex flex-col items-center text-center reveal reveal-delay-2">
+          <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-3" style="background:rgba(0,255,102,0.08);border:1px solid rgba(0,255,102,0.15);">
+            <span class="material-symbols-outlined text-neon" style="font-size:28px;">psychology</span>
+          </div>
+          <h3 class="font-heading font-semibold text-offwhite text-base mb-1">Processamento IA</h3>
+          <p class="font-body text-muted text-sm mb-2">OpenAI / Claude</p>
+        </div>
+        <div class="pipeline-line-v"></div>
+        <div class="flex flex-col items-center text-center reveal reveal-delay-3">
+          <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-3" style="background:rgba(0,255,102,0.08);border:1px solid rgba(0,255,102,0.15);">
+            <span class="material-symbols-outlined text-neon" style="font-size:28px;">chat</span>
+          </div>
+          <h3 class="font-heading font-semibold text-offwhite text-base mb-1">Entrega</h3>
+          <p class="font-body text-muted text-sm">WhatsApp Business API</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════ SOCIAL PROOF ═══════════════════════ -->
+  <section id="proof">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="text-small text-muted mb-3 reveal">Confiado por Operações de Alto Faturamento</p>
+        <h2 class="font-heading font-bold text-offwhite reveal reveal-delay-1" style="font-size:clamp(28px,4vw,48px);">
+          Resultados Comprovados em Escala.
+        </h2>
+      </div>
+
+      <!-- Logo Strip -->
+      <div class="flex flex-wrap items-center justify-center gap-10 md:gap-16 mb-20 reveal">
+        <svg class="logo-placeholder" width="100" height="32" viewBox="0 0 100 32" aria-label="Client logo"><rect rx="4" width="100" height="32" fill="#8D8D93"/><rect rx="2" x="12" y="10" width="76" height="12" fill="#050505" opacity="0.3"/></svg>
+        <svg class="logo-placeholder" width="90" height="32" viewBox="0 0 90 32" aria-label="Client logo"><circle cx="16" cy="16" r="12" fill="#8D8D93"/><rect rx="2" x="34" y="10" width="50" height="12" fill="#8D8D93"/></svg>
+        <svg class="logo-placeholder" width="110" height="32" viewBox="0 0 110 32" aria-label="Client logo"><rect rx="16" width="32" height="32" fill="#8D8D93"/><rect rx="2" x="40" y="10" width="64" height="12" fill="#8D8D93"/></svg>
+        <svg class="logo-placeholder" width="80" height="32" viewBox="0 0 80 32" aria-label="Client logo"><polygon points="16,2 30,30 2,30" fill="#8D8D93"/><rect rx="2" x="36" y="10" width="40" height="12" fill="#8D8D93"/></svg>
+        <svg class="logo-placeholder" width="95" height="32" viewBox="0 0 95 32" aria-label="Client logo"><rect rx="4" width="95" height="32" fill="#8D8D93"/><rect rx="2" x="10" y="10" width="75" height="12" fill="#050505" opacity="0.3"/></svg>
+        <svg class="logo-placeholder" width="85" height="32" viewBox="0 0 85 32" aria-label="Client logo"><circle cx="16" cy="16" r="14" fill="#8D8D93"/><rect rx="2" x="36" y="10" width="44" height="12" fill="#8D8D93"/></svg>
+      </div>
+
+      <!-- Metric Cards -->
+      <div class="grid sm:grid-cols-3 gap-6">
+        <div class="glass metric-card p-8 text-center reveal">
+          <p class="font-heading font-bold text-neon mb-2" style="font-size:clamp(36px,5vw,56px);" data-count="340" data-prefix="+" data-suffix="%">+0%</p>
+          <p class="font-body text-muted">Engajamento</p>
+        </div>
+        <div class="glass metric-card p-8 text-center reveal reveal-delay-1">
+          <p class="font-heading font-bold text-neon mb-2" style="font-size:clamp(36px,5vw,56px);" data-count="2" data-prefix="<" data-suffix="s">&lt;0s</p>
+          <p class="font-body text-muted">Tempo de Resposta</p>
+        </div>
+        <div class="glass metric-card p-8 text-center reveal reveal-delay-2">
+          <p class="font-heading font-bold text-neon mb-2" style="font-size:clamp(36px,5vw,56px);" data-count="45" data-prefix="$" data-suffix="k">$0k</p>
+          <p class="font-body text-muted">Valor Mensal Gerado</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════ ACTION MODULE ═══════════════════════ -->
+  <section id="contact">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="text-small text-muted mb-3 reveal">Comece Agora</p>
+        <h2 class="font-heading font-bold text-offwhite reveal reveal-delay-1" style="font-size:clamp(28px,4vw,48px);">
+          Pronto para escalar suas operações?
+        </h2>
+      </div>
+
+      <div class="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-12">
+        <!-- Form Card -->
+        <div class="glass p-10 w-full max-w-[600px] reveal" id="formCard">
+          <!-- Default Form -->
+          <div class="form-default" id="formDefault">
+            <form id="leadForm" novalidate>
+              <div class="form-group">
+                <input type="text" id="nameInput" name="name" placeholder=" " required autocomplete="name" aria-label="Nome Completo" />
+                <label for="nameInput">Nome Completo</label>
+                <span class="field-error" id="nameError"></span>
+              </div>
+              <div class="form-group">
+                <input type="email" id="emailInput" name="email" placeholder=" " required autocomplete="email" aria-label="E-mail" />
+                <label for="emailInput">E-mail</label>
+                <span class="field-error" id="emailError"></span>
+              </div>
+              <div class="form-group" id="phoneGroup">
+                <label for="whatsappInput" id="phoneLabel" class="phone-label">Número do WhatsApp</label>
+                <input type="tel" id="whatsappInput" name="whatsapp" placeholder=" " required autocomplete="tel" aria-label="Número do WhatsApp" />
+                <span class="field-error" id="phoneError"></span>
+              </div>
+              <div id="formError" class="text-sm mb-4 hidden" style="color:#FF3333;"></div>
+              <button type="submit" class="cta-btn w-full justify-center" id="submitBtn" style="font-size:16px;">
+                <span id="btnText">Receber no WhatsApp</span>
+                <span class="material-symbols-outlined" id="btnArrow" style="font-size:18px;">arrow_forward</span>
+                <span class="spinner hidden" id="btnSpinner"></span>
+                <span class="shimmer"></span>
+              </button>
+            </form>
+            <p class="flex items-center justify-center gap-1.5 text-muted text-xs mt-5">
+              <span class="material-symbols-outlined" style="font-size:14px;">lock</span>
+              Seguro &amp; Criptografado
+            </p>
+          </div>
+
+          <!-- Success State -->
+          <div class="form-success" id="formSuccess">
+            <svg width="80" height="80" viewBox="0 0 80 80" class="mx-auto mb-6">
+              <circle class="check-circle" cx="40" cy="40" r="36" fill="none" stroke="#00FF66" stroke-width="3"/>
+              <path class="check-mark" d="M24 40 L35 52 L56 28" fill="none" stroke="#00FF66" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <h3 class="font-heading font-bold text-offwhite text-2xl mb-2">Confira seu celular.</h3>
+            <p class="font-body text-muted">Enviamos uma mensagem no seu WhatsApp.</p>
+          </div>
+        </div>
+
+        <!-- WhatsApp Chat Simulator -->
+        <div class="hidden lg:block reveal reveal-delay-3">
+          <div class="wa-simulator" id="waSimulator">
+            <div class="wa-sim-header">
+              <div class="wa-sim-avatar">
+                <span class="material-symbols-outlined">smart_toy</span>
+              </div>
+              <div class="wa-sim-info">
+                <p>Antigravity IA</p>
+                <p>online</p>
+              </div>
+            </div>
+            <div class="wa-sim-body" id="waChatBody"></div>
+            <div class="wa-sim-footer">
+              <div class="wa-sim-input">Mensagem</div>
+              <div class="wa-sim-send">
+                <span class="material-symbols-outlined">send</span>
+              </div>
+            </div>
+          </div>
+          <p class="font-body text-xs text-muted text-center mt-3 flex items-center justify-center gap-1">
+            <span class="material-symbols-outlined" style="font-size:14px;">encrypted</span>
+            Criptografia de ponta a ponta
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+  <footer class="py-10 px-6 text-center" style="border-top:1px solid rgba(255,255,255,0.06);">
+    <p class="font-body text-muted text-sm">
+      &copy; 2026 Antigravity. Todos os direitos reservados.
+    </p>
+    <p class="font-body text-sm mt-1" style="color:rgba(141,141,147,0.5);">
+      Powered by Antigravity
+    </p>
+  </footer>
+
+
+  <!-- ═══════════════════════ JAVASCRIPT ═══════════════════════ -->
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/js/intlTelInput.min.js"></script>
+  <script>
+    // ── Hero Shader Background ──
+    (function initHeroShader() {
+      function boot() {
+        if (typeof THREE === 'undefined') return setTimeout(boot, 100);
+
+        var container = document.getElementById('heroShader');
+        if (!container) return;
+
+        var camera = new THREE.Camera();
+        camera.position.z = 1;
+
+        var scene = new THREE.Scene();
+        var geometry = new THREE.PlaneBufferGeometry(2, 2);
+
+        var uniforms = {
+          time: { type: 'f', value: 1.0 },
+          resolution: { type: 'v2', value: new THREE.Vector2() }
+        };
+
+        var vertexShader = 'void main(){gl_Position=vec4(position,1.0);}';
+
+        var fragmentShader = [
+          'precision highp float;',
+          'uniform vec2 resolution;',
+          'uniform float time;',
+          'float random(in float x){return fract(sin(x)*1e4);}',
+          'void main(void){',
+          '  vec2 uv=(gl_FragCoord.xy*2.0-resolution.xy)/min(resolution.x,resolution.y);',
+          '  vec2 fM=vec2(4.0,2.0);',
+          '  vec2 vS=vec2(256.0,256.0);',
+          '  uv.x=floor(uv.x*vS.x/fM.x)/(vS.x/fM.x);',
+          '  uv.y=floor(uv.y*vS.y/fM.y)/(vS.y/fM.y);',
+          '  float t=time*0.06+random(uv.x)*0.4;',
+          '  float lw=0.0008;',
+          '  vec3 c=vec3(0.0);',
+          '  for(int j=0;j<3;j++){',
+          '    for(int i=0;i<5;i++){',
+          '      c[j]+=lw*float(i*i)/abs(fract(t-0.01*float(j)+float(i)*0.01)*1.0-length(uv));',
+          '    }',
+          '  }',
+          // Tint towards green/neon to match the Antigravity brand
+          '  gl_FragColor=vec4(c[2]*0.3, c[1]*1.0+c[0]*0.15, c[0]*0.4, 1.0);',
+          '}'
+        ].join('\n');
+
+        var material = new THREE.ShaderMaterial({
+          uniforms: uniforms,
+          vertexShader: vertexShader,
+          fragmentShader: fragmentShader
+        });
+
+        var mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
+
+        var renderer = new THREE.WebGLRenderer({ alpha: false });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(renderer.domElement);
+
+        function onResize() {
+          var rect = container.getBoundingClientRect();
+          renderer.setSize(rect.width, rect.height);
+          uniforms.resolution.value.x = renderer.domElement.width;
+          uniforms.resolution.value.y = renderer.domElement.height;
+        }
+        onResize();
+        window.addEventListener('resize', onResize);
+
+        function animate() {
+          requestAnimationFrame(animate);
+          uniforms.time.value += 0.05;
+          renderer.render(scene, camera);
+        }
+        animate();
+      }
+      boot();
+    })();
+
+    // ── Mobile Menu Toggle ──
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const bar1 = document.getElementById('bar1');
+    const bar2 = document.getElementById('bar2');
+    const bar3 = document.getElementById('bar3');
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', isOpen);
+      bar1.style.transform = isOpen ? 'rotate(45deg) translate(4px, 4px)' : '';
+      bar2.style.opacity = isOpen ? '0' : '1';
+      bar3.style.transform = isOpen ? 'rotate(-45deg) translate(4px, -4px)' : '';
+    });
+
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        bar1.style.transform = '';
+        bar2.style.opacity = '1';
+        bar3.style.transform = '';
+      });
+    });
+
+    // ── intl-tel-input Initialization ──
+    const phoneInput = document.getElementById('whatsappInput');
+    const iti = intlTelInput(phoneInput, {
+      initialCountry: 'br',
+      preferredCountries: ['br', 'pt', 'us'],
+      separateDialCode: true,
+      formatOnDisplay: false,
+      autoPlaceholder: 'aggressive',
+      utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/js/utils.js',
+    });
+
+    // Block non-numeric characters in phone input
+    phoneInput.addEventListener('input', () => {
+      phoneInput.value = phoneInput.value.replace(/[^0-9]/g, '');
+    });
+
+    // ── Smooth Scroll for Nav Links ──
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        const target = document.querySelector(anchor.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // ── Intersection Observer: Reveal on Scroll ──
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ── Counter Animation ──
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.dataset.count);
+          const prefix = el.dataset.prefix || '';
+          const suffix = el.dataset.suffix || '';
+          const duration = 1500;
+          const start = performance.now();
+
+          function update(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.round(eased * target);
+            el.textContent = prefix + current + suffix;
+            if (progress < 1) requestAnimationFrame(update);
+          }
+          requestAnimationFrame(update);
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
+
+    // ── Form Submission ──
+    const form = document.getElementById('leadForm');
+    const formDefault = document.getElementById('formDefault');
+    const formSuccess = document.getElementById('formSuccess');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const btnArrow = document.getElementById('btnArrow');
+    const btnSpinner = document.getElementById('btnSpinner');
+    const formError = document.getElementById('formError');
+
+    const nameInput = document.getElementById('nameInput');
+    const emailInput = document.getElementById('emailInput');
+    const nameError = document.getElementById('nameError');
+    const emailError = document.getElementById('emailError');
+    const phoneError = document.getElementById('phoneError');
+
+    function validateEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email);
+    }
+
+    function validateFullName(name) {
+      const parts = name.trim().split(/\s+/);
+      return parts.length >= 2 && parts.every(p => p.length >= 2);
+    }
+
+    function showFieldError(input, errorEl, msg) {
+      errorEl.textContent = msg;
+      errorEl.classList.add('visible');
+      input.closest('.form-group').classList.add('has-error');
+    }
+
+    function clearFieldError(input, errorEl) {
+      errorEl.textContent = '';
+      errorEl.classList.remove('visible');
+      input.closest('.form-group').classList.remove('has-error');
+    }
+
+    function clearAllErrors() {
+      clearFieldError(nameInput, nameError);
+      clearFieldError(emailInput, emailError);
+      clearFieldError(document.getElementById('whatsappInput'), phoneError);
+      formError.classList.add('hidden');
+    }
+
+    // Clear individual errors on typing
+    nameInput.addEventListener('input', () => clearFieldError(nameInput, nameError));
+    emailInput.addEventListener('input', () => clearFieldError(emailInput, emailError));
+    document.getElementById('whatsappInput').addEventListener('input', () =>
+      clearFieldError(document.getElementById('whatsappInput'), phoneError)
+    );
+
+    function showError(msg) {
+      formError.textContent = msg;
+      formError.classList.remove('hidden');
+    }
+
+    function hideError() {
+      formError.classList.add('hidden');
+    }
+
+    function setLoading(loading) {
+      if (loading) {
+        btnText.textContent = 'Enviando...';
+        btnArrow.classList.add('hidden');
+        btnSpinner.classList.remove('hidden');
+        submitBtn.disabled = true;
+        submitBtn.style.boxShadow = '0 0 48px rgba(0, 255, 102, 0.35)';
+      } else {
+        btnText.textContent = 'Receber no WhatsApp';
+        btnArrow.classList.remove('hidden');
+        btnSpinner.classList.add('hidden');
+        submitBtn.disabled = false;
+        submitBtn.style.boxShadow = '';
+      }
+    }
+
+    // ── WhatsApp Chat Simulator ──
+    (function initWaSimulator() {
+      const chatBody = document.getElementById('waChatBody');
+      if (!chatBody) return;
+
+      const conversation = [
+        { type: 'client', text: 'Oi, vi que vocês fazem automação com IA 👀', delay: 1000 },
+        { type: 'typing', delay: 1200 },
+        { type: 'bot', text: 'Olá! Sim! Criamos fluxos inteligentes que atendem seus clientes 24/7 pelo WhatsApp. Em que posso ajudar? 😊', delay: 800 },
+        { type: 'client', text: 'Quanto tempo leva pra responder um lead?', delay: 2000 },
+        { type: 'typing', delay: 1000 },
+        { type: 'bot', text: 'Menos de 2 segundos! ⚡ O lead recebe resposta instantânea, sem espera.', delay: 800 },
+        { type: 'client', text: 'Impressionante! Como começo?', delay: 2200 },
+        { type: 'typing', delay: 1200 },
+        { type: 'bot', text: 'Preencha o formulário ao lado e nossa equipe entra em contato hoje mesmo! 🚀', delay: 800 },
+      ];
+
+      function getTime() {
+        const now = new Date();
+        return now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+      }
+
+      function addMessage(item) {
+        // Remove typing indicator if present
+        const existingTyping = chatBody.querySelector('.wa-typing');
+        if (existingTyping) existingTyping.remove();
+
+        if (item.type === 'typing') {
+          const typing = document.createElement('div');
+          typing.className = 'wa-typing';
+          typing.innerHTML = '<div class="wa-typing-dot"></div><div class="wa-typing-dot"></div><div class="wa-typing-dot"></div>';
+          chatBody.appendChild(typing);
+        } else {
+          const msg = document.createElement('div');
+          msg.className = 'wa-msg ' + (item.type === 'client' ? 'wa-msg-client' : 'wa-msg-bot');
+          const checkHtml = item.type === 'bot'
+            ? '<span class="material-symbols-outlined wa-check-double">done_all</span>'
+            : '';
+          msg.innerHTML = '<span>' + item.text + '</span><div class="wa-msg-time">' + getTime() + ' ' + checkHtml + '</div>';
+          chatBody.appendChild(msg);
+        }
+
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+
+      function playConversation() {
+        chatBody.innerHTML = '';
+        let totalDelay = 0;
+
+        conversation.forEach(function(item) {
+          totalDelay += item.delay;
+          setTimeout(function() { addMessage(item); }, totalDelay);
+        });
+
+        // Restart after conversation ends + pause
+        setTimeout(function() { playConversation(); }, totalDelay + 4000);
+      }
+
+      // Start when simulator becomes visible
+      const simObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            playConversation();
+            simObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+
+      simObserver.observe(document.getElementById('waSimulator'));
+    })();
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearAllErrors();
+
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      const phoneEl = document.getElementById('whatsappInput');
+      const localNumber = phoneEl.value.replace(/[^0-9]/g, '');
+
+      // Build full number: try iti.getNumber() first, fallback to dial code + local
+      let rawNumber = iti.getNumber();
+      let whatsapp = rawNumber ? rawNumber.replace(/[^0-9]/g, '') : '';
+      if (!whatsapp || whatsapp.length < 8) {
+        // Fallback: get dial code from selected country + local input
+        const countryData = iti.getSelectedCountryData();
+        const dialCode = countryData.dialCode || '55';
+        whatsapp = dialCode + localNumber;
+      }
+
+      let hasError = false;
+
+      if (!name) {
+        showFieldError(nameInput, nameError, 'Informe seu nome.');
+        hasError = true;
+      } else if (!validateFullName(name)) {
+        showFieldError(nameInput, nameError, 'Informe nome e sobrenome.');
+        hasError = true;
+      }
+
+      if (!email) {
+        showFieldError(emailInput, emailError, 'Informe seu e-mail.');
+        hasError = true;
+      } else if (!validateEmail(email)) {
+        showFieldError(emailInput, emailError, 'Insira um e-mail válido (ex: nome@email.com).');
+        hasError = true;
+      }
+
+      if (!localNumber) {
+        showFieldError(phoneEl, phoneError, 'Informe seu número de WhatsApp.');
+        hasError = true;
+      } else if (localNumber.length < 8) {
+        showFieldError(phoneEl, phoneError, 'Número de telefone inválido.');
+        hasError = true;
+      }
+
+      if (hasError) return;
+
+      setLoading(true);
+      btnText.textContent = 'Verificando número...';
+
+      // Step 1: Verify WhatsApp number
+      let verifiedNumber = whatsapp;
+      try {
+        const verifyRes = await fetch('/api/verify-whatsapp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ number: whatsapp }),
+        });
+        const verifyData = await verifyRes.json();
+
+        if (!verifyData.valid) {
+          showFieldError(document.getElementById('whatsappInput'), phoneError,
+            'Este número não existe no WhatsApp. Por favor, insira seu número verdadeiro.');
+          setLoading(false);
+          return;
+        }
+
+        // Use the corrected number (9th digit fix, etc.)
+        verifiedNumber = verifyData.number;
+      } catch (err) {
+        // If verification fails, proceed with original number
+        console.warn('WhatsApp verification failed, proceeding:', err.message);
+      }
+
+      // Step 2: Submit lead with verified number
+      btnText.textContent = 'Enviando...';
+      try {
+        const res = await fetch('/api/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, whatsapp: verifiedNumber }),
+        });
+
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          throw new Error(data.message || 'Algo deu errado. Tente novamente.');
+        }
+
+        // Success
+        formDefault.classList.add('hidden');
+        formSuccess.classList.add('show');
+      } catch (err) {
+        showError(err.message);
+        setLoading(false);
+      }
+    });
+  </script>
+
+</body>
+</html>

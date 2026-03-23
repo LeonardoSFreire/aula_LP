@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dark Glass Tech Premium - Problem-Result Bridge</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00FF66",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#050505",
+                        "surface": "rgba(18, 18, 18, 0.6)",
+                        "muted": "#8D8D93",
+                        "danger": "#FF3333"
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Outfit", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    backgroundImage: {
+                        'glass-gradient': 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01))',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: var(--color-surface, rgba(18, 18, 18, 0.6));
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .divider-line {
+            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.1) 20%, rgba(255, 255, 255, 0.1) 80%, transparent);
+        }
+
+        .glow-danger {
+            box-shadow: 0 0 24px rgba(255, 51, 51, 0.1);
+        }
+
+        .glow-primary {
+            box-shadow: 0 0 32px rgba(0, 255, 102, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-body text-slate-900 dark:text-slate-100 min-h-screen flex items-center justify-center py-20">
+<section class="w-full max-w-[1200px] px-6 mx-auto flex flex-col items-center">
+<div class="text-center mb-16 max-w-2xl">
+<h2 class="font-display text-4xl md:text-5xl font-bold tracking-[-0.04em] mb-4 text-white">Manual Chaos vs. Automated Clarity</h2>
+<p class="text-muted text-lg">Contrast your current manual bottlenecks with our flawless, instant automation designed for high-scale operations.</p>
+</div>
+<div class="relative w-full grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-8 md:gap-0 items-stretch">
+<!-- Manual Column -->
+<div class="flex flex-col gap-6 md:pr-12">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-danger">warning</span>
+<h3 class="font-display text-2xl font-semibold text-white">The Old Way</h3>
+</div>
+<div class="glass-card rounded-2xl p-8 flex flex-col gap-6 relative overflow-hidden group">
+<div class="absolute inset-0 bg-danger/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<p class="text-muted text-base relative z-10">Messy, stacked UI elements and red-alert bottlenecks causing significant operational drag.</p>
+<!-- Chaotic UI Simulation -->
+<div class="flex flex-col gap-3 relative z-10 opacity-80 mt-4">
+<div class="bg-[#1A1A1A] border border-danger/30 rounded-lg p-3 flex items-center justify-between shadow-[0_0_15px_rgba(255,51,51,0.1)]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-danger/80 text-sm">mail</span>
+<span class="text-xs text-danger/80">Unread leads (42)</span>
+</div>
+<span class="text-[10px] text-muted">2h ago</span>
+</div>
+<div class="bg-[#1A1A1A] border border-white/5 rounded-lg p-3 flex items-center justify-between translate-x-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-muted text-sm">schedule</span>
+<span class="text-xs text-muted">Follow-up needed</span>
+</div>
+<span class="text-[10px] text-danger">Overdue</span>
+</div>
+<div class="bg-[#1A1A1A] border border-white/5 rounded-lg p-3 flex items-center justify-between -translate-x-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-muted text-sm">error</span>
+<span class="text-xs text-muted">API Sync Failed</span>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-6 border-t border-white/5 relative z-10">
+<div class="bg-surface border border-danger/20 rounded-lg px-4 py-3 inline-flex flex-col gap-1 w-full">
+<span class="text-xs text-danger uppercase tracking-[0.1em]">Time Lost Weekly</span>
+<span class="font-display text-3xl font-bold text-white">15<span class="text-lg text-muted ml-1">hours</span></span>
+</div>
+</div>
+</div>
+</div>
+<!-- Divider -->
+<div class="hidden md:flex w-px h-full divider-line mx-4 relative justify-center">
+<div class="absolute top-1/2 -translate-y-1/2 bg-background-dark border border-white/10 rounded-full p-2 glass-card z-10">
+<span class="material-symbols-outlined text-muted text-sm">compare_arrows</span>
+</div>
+</div>
+<!-- Automated Column -->
+<div class="flex flex-col gap-6 md:pl-12">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+<h3 class="font-display text-2xl font-semibold text-white">The Dark Glass Way</h3>
+</div>
+<div class="glass-card rounded-2xl p-8 flex flex-col gap-6 relative overflow-hidden group">
+<div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<div class="absolute -top-20 -right-20 w-40 h-40 bg-primary/20 blur-[50px] rounded-full"></div>
+<p class="text-muted text-base relative z-10">Instant, zero-touch engagement. Clean, glassmorphic dashboards with absolute precision.</p>
+<!-- Organized UI Simulation -->
+<div class="flex flex-col gap-3 relative z-10 mt-4">
+<div class="bg-surface border border-primary/30 rounded-lg p-3 flex items-center justify-between glow-primary transition-all duration-300">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="text-sm text-white font-medium">Lead Captured &amp; Verified</span>
+</div>
+<span class="text-[10px] text-primary">Instant</span>
+</div>
+<div class="bg-surface border border-white/5 rounded-lg p-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary/70 text-sm">smart_toy</span>
+<span class="text-sm text-white/70">AI Response Generated</span>
+</div>
+<span class="text-[10px] text-muted">+0.8s</span>
+</div>
+<div class="bg-surface border border-white/5 rounded-lg p-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary/70 text-sm">send</span>
+<span class="text-sm text-white/70">WhatsApp Delivered</span>
+</div>
+<span class="text-[10px] text-muted">+1.2s</span>
+</div>
+</div>
+<div class="mt-auto pt-6 border-t border-white/5 relative z-10">
+<div class="bg-surface border border-primary/20 rounded-lg px-4 py-3 inline-flex flex-col gap-1 w-full">
+<span class="text-xs text-primary uppercase tracking-[0.1em]">Automated Response</span>
+<span class="font-display text-3xl font-bold text-white">&lt;2<span class="text-lg text-primary/70 ml-1">seconds</span></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</body></html>
