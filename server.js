@@ -79,7 +79,7 @@ async function sendEchoToMaia(leadName, leadPhone, messageText) {
       'https://api.maiacompany.io/messages',
       {
         content: messageText,
-        fromChannelIdentifier: '+554792621792',
+        fromChannelIdentifier: process.env.FROM_CHANNEL_IDENTIFIER || '',
         externalUserId: leadPhone,
         sessionId: leadPhone,
         sessionName: leadName,
