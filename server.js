@@ -16,7 +16,7 @@ let supabase;
 function getSupabase() {
   if (!supabase) {
     if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) {
-      throw new Error("SUPABASE_URL and SUPABASE_ANON_KEY must be configured");
+      return null;
     }
     supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
   }
@@ -259,15 +259,13 @@ app.post(
         return res.status(400).json({ success: false, message: "Número do WhatsApp inválido" });
       }
 
-      const { error } = await getSupabase()
-        .from("leads")
-        .insert([{ name, email, whatsapp }]);
-
-      if (error) {
-        console.error("Erro ao inserir no Supabase:", error.message);
-        return res
-          .status(500)
-          .json({ success: false, message: "Falha ao registrar lead" });
+      // Supabase fire-and-forget: salva o lead se configurado, mas não bloqueia
+      const db = getSupabase();
+      if (db) {
+        db.from("leads").insert([{ name, email, whatsapp }]).then(({ error }) => {
+          if (error) console.error("Erro ao inserir no Supabase:", error.message);
+          else console.log(`Lead salvo no Supabase: ${name}`);
+        });
       }
 
       const welcomeText = buildWelcomeText(name);
